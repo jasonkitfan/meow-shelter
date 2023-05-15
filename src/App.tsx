@@ -1,24 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import AnimalGrid from './components/animal_grid/AnimalGrid';
+import Donation from './components/donation/Donation';
+import EventSlider from './components/event_slider/EventSlider';
+import HeroSection from './components/hero_section/HeroSection';
+import MyAppBar from './components/my_app_bar/MyAppBar';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <MyAppBar />
+      <HeroSection />
+      <AnimalGrid />
+      <EventSlider />
+      <Donation />
     </div>
   );
 }
