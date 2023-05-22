@@ -1,121 +1,96 @@
-import { Grid, Card, CardMedia, CardContent, Typography, Button } from '@mui/material';
-import { useState } from 'react';
+import {
+  Grid,
+  Card,
+  CardMedia,
+  CardContent,
+  Typography,
+  Button,
+} from "@mui/material";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+interface Cat {
+  id: string;
+  dob: any;
+  breed: string;
+  gender: string;
+  image_url: string;
+  adoptable: boolean;
+}
 
 function AnimalGrid() {
+  const [cats, setCats] = useState<Cat[]>([]);
 
-    const [animals, setAnimals] = useState([
-        {
-          id: 1,
-          name: 'Fluffy',
-          age: 2,
-          breed: 'Domestic Short Hair',
-          sex: 'Female',
-          image: 'https://example.com/cat.jpg',
-        },
-        {
-          id: 2,
-          name: 'Buddy',
-          age: 3,
-          breed: 'Labrador Retriever',
-          sex: 'Male',
-          image: 'https://example.com/dog.jpg',
-        },
-        {
-          id: 3,
-          name: 'Thumper',
-          age: 1,
-          breed: 'Holland Lop',
-          sex: 'Female',
-          image: 'https://example.com/rabbit.jpg',
-        },
-        {
-            id: 1,
-            name: 'Fluffy',
-            age: 2,
-            breed: 'Domestic Short Hair',
-            sex: 'Female',
-            image: 'https://example.com/cat.jpg',
-          },
-          {
-            id: 2,
-            name: 'Buddy',
-            age: 3,
-            breed: 'Labrador Retriever',
-            sex: 'Male',
-            image: 'https://example.com/dog.jpg',
-          },
-          {
-            id: 3,
-            name: 'Thumper',
-            age: 1,
-            breed: 'Holland Lop',
-            sex: 'Female',
-            image: 'https://example.com/rabbit.jpg',
-          },
-          {
-            id: 1,
-            name: 'Fluffy',
-            age: 2,
-            breed: 'Domestic Short Hair',
-            sex: 'Female',
-            image: 'https://example.com/cat.jpg',
-          },
-          {
-            id: 2,
-            name: 'Buddy',
-            age: 3,
-            breed: 'Labrador Retriever',
-            sex: 'Male',
-            image: 'https://example.com/dog.jpg',
-          },
-          {
-            id: 3,
-            name: 'Thumper',
-            age: 1,
-            breed: 'Holland Lop',
-            sex: 'Female',
-            image: 'https://example.com/rabbit.jpg',
-          },
-      ]);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          "https://asia-east2-meow-shelter.cloudfunctions.net/app/shelter/"
+        );
+        setCats(response.data);
+      } catch (error) {
+        console.error(error);
+        setTimeout(() => {
+          fetchData();
+        });
+      }
+    }
+    fetchData();
+  }, []);
 
-      return (
-        <div style={{ paddingTop: "10rem", paddingBottom: "10rem" }}>
-            <Typography variant="h2" sx={{ mb: 4, textAlign: 'center', paddingBottom: '5rem'}}>
-                Adopt a Furry Friend
-            </Typography>
-            <Grid container spacing={8} sx={{ 
-        paddingLeft: { xs: '1rem', md: '5rem', xl: '20rem' },
-        paddingRight: { xs: '1rem', md: '5rem', xl: '20rem' },
-      }}>
-                {animals.map((animal) => (
-                    <Grid item xs={12} sm={6} md={4} key={animal.id}>
-                    <Card>
-                        <CardMedia
-                        component="img"
-                        height="100rem"
-                        image={animal.image}
-                        alt={animal.name}
-                        />
-                        <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                            {animal.name}
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary">
-                            Age: {animal.age}<br/>
-                            Breed: {animal.breed}<br/>
-                            Sex: {animal.sex}
-                        </Typography>
-                        <Button variant="contained" color="primary" sx={{ mt: 2 }}>
-                            Adopt {animal.name}
-                        </Button>
-                        </CardContent>
-                    </Card>
-                    </Grid>
-                ))}
-                </Grid>
-        </div>
+  const calculateAge = (dob: { _seconds: number; _nanoseconds: number }) => {
+    const dobDate = new Date(dob._seconds * 1000 + dob._nanoseconds / 1000000);
+    const diff = new Date().getTime() - dobDate.getTime();
+    const age = (diff / 1000 / 60 / 60 / 24 / 365).toFixed(1);
+    return age;
+  };
 
-      );
+  return (
+    <div style={{ paddingTop: "10rem", paddingBottom: "10rem" }}>
+      <Typography
+        variant="h2"
+        sx={{ mb: 4, textAlign: "center", paddingBottom: "5rem" }}
+      >
+        Adopt a Furry Friend
+      </Typography>
+      <Grid
+        container
+        spacing={8}
+        sx={{
+          paddingLeft: { xs: "1rem", md: "5rem", xl: "20rem" },
+          paddingRight: { xs: "1rem", md: "5rem", xl: "20rem" },
+        }}
+      >
+        {cats.map((cat) => (
+          <Grid item xs={12} sm={6} md={4} key={cat.id}>
+            <Card>
+              <CardMedia
+                component="img"
+                height="200rem"
+                image={cat.image_url}
+                alt={cat.breed}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  {cat.breed}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  Age: {calculateAge(cat.dob)}
+                  <br />
+                  Breed: {cat.breed}
+                  <br />
+                  Gender: {cat.gender}
+                </Typography>
+                <Button variant="contained" color="primary" sx={{ mt: 2 }}>
+                  Adopt
+                </Button>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+    </div>
+  );
 }
 
 export default AnimalGrid;
