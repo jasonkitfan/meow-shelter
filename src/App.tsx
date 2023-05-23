@@ -11,7 +11,7 @@ function App() {
     <div>
       <MyAppBar />
       <HeroSection />
-      <AnimalGrid />
+      {/* <AnimalGrid /> */}
       <EventSlider />
       <Donation />
       <ContactSection />
