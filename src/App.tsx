@@ -1,22 +1,15 @@
-import AnimalGrid from "./components/animal_grid/AnimalGrid";
-import ContactSection from "./components/contact/ContactSection";
-import Donation from "./components/donation/Donation";
-import EventSlider from "./components/event_slider/EventSlider";
-import Footer from "./components/footer/Footer";
-import HeroSection from "./components/hero_section/HeroSection";
-import MyAppBar from "./components/my_app_bar/MyAppBar";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import RegisterUser from "./pages/RegisterUser";
 
 function App() {
   return (
-    <div>
-      <MyAppBar />
-      <HeroSection />
-      {/* <AnimalGrid /> */}
-      <EventSlider />
-      <Donation />
-      <ContactSection />
-      <Footer />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<RegisterUser />} />
+      </Routes>
+    </Router>
   );
 }
 

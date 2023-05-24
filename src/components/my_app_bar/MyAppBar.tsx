@@ -13,10 +13,11 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import PetsIcon from "@mui/icons-material/Pets";
 import AddCatDialog from "./AddCatDialog";
+import LoginAndRegister from "./LoginAndRegister";
 
 const pages = ["Adoption", "Event", "Donation", "Contact"];
 const settings = ["Profile", "Dashboard", "Add New Cat", "Logout"];
-const shelterName = "Meow Sheletr";
+const shelterName = "Meow Shelter";
 
 function MyAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -192,6 +193,7 @@ function MyAppBar() {
               ))}
             </Menu>
           </Box>
+          <LoginAndRegister />
         </Toolbar>
       </Container>
       <AddCatDialog open={openDialog} onClose={handleCloseDialog} />
