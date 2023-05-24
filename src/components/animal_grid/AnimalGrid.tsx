@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import imageNotFound from "./image_not_found.png";
 
 interface Cat {
   id: string;
@@ -38,9 +39,10 @@ function AnimalGrid() {
     fetchData();
   }, []);
 
-  const calculateAge = (dob: { _seconds: number; _nanoseconds: number }) => {
-    const dobDate = new Date(dob._seconds * 1000 + dob._nanoseconds / 1000000);
-    const diff = new Date().getTime() - dobDate.getTime();
+  // Calculate the age of the cat
+  const calculateAge = (dob: string) => {
+    const dobDate = new Date(dob);
+    const diff = Date.now() - dobDate.getTime();
     const age = (diff / 1000 / 60 / 60 / 24 / 365).toFixed(1);
     return age;
   };
@@ -67,8 +69,13 @@ function AnimalGrid() {
               <CardMedia
                 component="img"
                 height="200rem"
-                image={cat.image_url}
                 alt={cat.breed}
+                {...(cat.image_url
+                  ? { image: cat.image_url }
+                  : { src: imageNotFound })}
+                onError={(e) => {
+                  e.currentTarget.src = imageNotFound;
+                }}
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">

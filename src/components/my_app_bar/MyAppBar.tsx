@@ -69,6 +69,8 @@ function MyAppBar() {
     }
   };
 
+  const [user, setUser] = React.useState(false);
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -158,8 +160,7 @@ function MyAppBar() {
               </Button>
             ))}
           </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, display: `${user ? "block" : "none"}` }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
