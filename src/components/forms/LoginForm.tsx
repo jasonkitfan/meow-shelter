@@ -13,30 +13,30 @@ import GoogleIcon from "@mui/icons-material/Google";
 import AppleIcon from "@mui/icons-material/Apple";
 import MicrosoftIcon from "@mui/icons-material/Window";
 import {
+  auth,
   signInWithGoogle,
-  registerWithEmailAndPassword,
+  logInWithEmailAndPassword,
+  sendPasswordReset,
 } from "../../config/firebase";
+import MyAppBar from "../../components/my_app_bar/MyAppBar";
+import Footer from "../../components/footer/Footer";
 
-const UserRegistrationForm: React.FC = () => {
-  const [username, setUsername] = useState("");
+const LoginForm: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate(); // initialize useHistory hook
 
-  const handleRegistration = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       // Create the user with Firebase auth
-      const userCredential = await registerWithEmailAndPassword(
-        username,
-        email,
-        password
-      );
+      const userCredential = await logInWithEmailAndPassword(email, password);
 
+      if (auth !== null) {
+        navigate("/");
+      }
       // Log the user in
-      console.log("User created");
-      navigate("/");
+      console.log("User Login");
     } catch (error: any) {
       // Handle any errors
       console.error("Error creating user:", error);
@@ -62,23 +62,9 @@ const UserRegistrationForm: React.FC = () => {
         }}
       >
         <Typography component="h1" variant="h5" sx={{ marginBottom: 2 }}>
-          Create an account
+          Login
         </Typography>
-        <Box
-          component="form"
-          onSubmit={handleRegistration}
-          sx={{ width: "100%" }}
-        >
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            label="Username"
-            autoComplete="username"
-            autoFocus
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
+        <Box component="form" onSubmit={handleLogin} sx={{ width: "100%" }}>
           <TextField
             margin="normal"
             required
@@ -99,29 +85,19 @@ const UserRegistrationForm: React.FC = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            label="Confirm Password"
-            type="password"
-            autoComplete="current-password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
           <Button
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Sign Up
+            Login
           </Button>
           <Typography
             variant="body2"
             sx={{ textAlign: "center", marginBottom: 2 }}
           >
-            Or sign up with
+            Or login with
           </Typography>
           <Stack direction="row" spacing={2}>
             <Button
@@ -153,4 +129,4 @@ const UserRegistrationForm: React.FC = () => {
   );
 };
 
-export default UserRegistrationForm;
+export default LoginForm;

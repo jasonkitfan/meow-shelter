@@ -14,12 +14,25 @@ import MenuItem from "@mui/material/MenuItem";
 import PetsIcon from "@mui/icons-material/Pets";
 import AddCatDialog from "./AddCatDialog";
 import LoginAndRegister from "./LoginAndRegister";
+import { useState } from "react";
+import { auth, logout } from "../../config/firebase";
 
 const pages = ["Adoption", "Event", "Donation", "Contact"];
 const settings = ["Profile", "Dashboard", "Add New Cat", "Logout"];
 const shelterName = "Meow Shelter";
 
 function MyAppBar() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  React.useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setIsAuthenticated(user !== null);
+      console.log(user?.getIdToken);
+    });
+
+    return unsubscribe;
+  }, []);
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -62,15 +75,14 @@ function MyAppBar() {
         handleOpenDialog();
         break;
       case settings[3]:
-        // do something;
+        console.log("logout user");
+        logout();
         break;
       default:
         console.log("not match");
         break;
     }
   };
-
-  const [user, setUser] = React.useState(false);
 
   return (
     <AppBar position="static">
@@ -161,7 +173,12 @@ function MyAppBar() {
               </Button>
             ))}
           </Box>
-          <Box sx={{ flexGrow: 0, display: `${user ? "block" : "none"}` }}>
+          <Box
+            sx={{
+              flexGrow: 0,
+              display: `${isAuthenticated ? "block" : "none"}`,
+            }}
+          >
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -193,7 +210,7 @@ function MyAppBar() {
               ))}
             </Menu>
           </Box>
-          <LoginAndRegister />
+          <LoginAndRegister auth={isAuthenticated} />
         </Toolbar>
       </Container>
       <AddCatDialog open={openDialog} onClose={handleCloseDialog} />

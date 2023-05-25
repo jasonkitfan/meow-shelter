@@ -2,7 +2,11 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom"; // import useHistory hook
 
-function LoginAndRegister() {
+interface isAuth {
+  auth: boolean;
+}
+
+function LoginAndRegister(props: isAuth) {
   const navigate = useNavigate(); // initialize useHistory hook
 
   const handleRegisterClick = () => {
@@ -10,17 +14,26 @@ function LoginAndRegister() {
     navigate("/register");
   };
 
+  const handelLoginClick = () => {
+    navigate("/login");
+  };
+
   return (
     <div>
       <Box
         sx={{
-          display: { xs: "block", md: "flex" },
+          display: props.auth ? "none" : { xs: "block", md: "flex" },
           maxWidth: { xs: "100px", md: "200px" },
           textAlign: "center",
           gap: 2,
         }}
       >
-        <Button variant="contained" color="secondary" sx={{ width: "100%" }}>
+        <Button
+          variant="contained"
+          color="secondary"
+          sx={{ width: "100%" }}
+          onClick={handelLoginClick}
+        >
           Login
         </Button>
         <Button
