@@ -12,10 +12,11 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import PetsIcon from "@mui/icons-material/Pets";
-import AddCatDialog from "./AddCatDialog";
 import LoginAndRegister from "./LoginAndRegister";
 import { useState } from "react";
 import { auth, logout } from "../../config/firebase";
+import AddCat from "./AddCat";
+import { useNavigate } from "react-router-dom";
 
 const pages = ["Adoption", "Event", "Donation", "Contact"];
 const settings = ["Profile", "Dashboard", "Add New Cat", "Logout"];
@@ -23,6 +24,7 @@ const shelterName = "Meow Shelter";
 
 function MyAppBar() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate(); // initialize useHistory hook
 
   React.useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -51,16 +53,6 @@ function MyAppBar() {
     setAnchorElNav(null);
   };
 
-  const [openDialog, setOpenDialog] = React.useState(false);
-
-  const handleOpenDialog = () => {
-    setOpenDialog(true);
-  };
-
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
-  };
-
   const handleCloseUserMenu = (setting: string) => {
     setAnchorElUser(null);
     switch (setting) {
@@ -72,7 +64,7 @@ function MyAppBar() {
         break;
       case settings[2]:
         console.log("add new cat");
-        handleOpenDialog();
+        navigate("/addNewCat");
         break;
       case settings[3]:
         console.log("logout user");
@@ -213,7 +205,6 @@ function MyAppBar() {
           <LoginAndRegister auth={isAuthenticated} />
         </Toolbar>
       </Container>
-      <AddCatDialog open={openDialog} onClose={handleCloseDialog} />
     </AppBar>
   );
 }

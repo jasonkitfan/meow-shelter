@@ -1,19 +1,21 @@
 import * as React from "react";
-import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Box } from "@mui/system";
 import axios from "axios";
 import qs from "qs";
+import {
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+  Typography,
+} from "@mui/material";
+import FormGroup from "@mui/material/FormGroup";
+import InputLabel from "@mui/material/InputLabel";
 
-export default function AddCatDialog(props: {
-  open: boolean;
-  onClose: () => void;
-}) {
-  const { open, onClose } = props;
+export default function AddCat() {
   const [name, setName] = React.useState("");
   const [breed, setBreed] = React.useState("");
   const [gender, setGender] = React.useState("");
@@ -78,54 +80,75 @@ export default function AddCatDialog(props: {
       .catch((error) => {
         console.log(error);
       });
-    onClose();
   };
 
   return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Add a Cat</DialogTitle>
-      <DialogContent>
-        <Box sx={{ display: "flex", flexDirection: "column" }}>
-          <label htmlFor="image-upload">
-            <img src={image} alt="Cat" width={300} />
-          </label>
-          <input
-            id="image-upload"
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-          />
+    <Box maxWidth={500} mx="auto" marginTop={5}>
+      <Typography variant="h4">Add a Cat</Typography>
+      <Box sx={{ display: "flex", flexDirection: "column" }}>
+        <label htmlFor="image-upload">
+          <img src={image} alt="Cat" width={300} />
+        </label>
+        <input
+          id="image-upload"
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+        />
+        <FormGroup sx={{ mb: 2 }}>
+          <InputLabel htmlFor="name">Name</InputLabel>
           <TextField
             margin="dense"
             id="name"
-            label="Name"
             type="text"
             fullWidth
             value={name}
             onChange={handleNameChange}
+            InputLabelProps={{
+              shrink: true,
+            }}
           />
+
+          <InputLabel htmlFor="breed">Breed</InputLabel>
           <TextField
             margin="dense"
             id="breed"
-            label="Breed"
             type="text"
             fullWidth
             value={breed}
             onChange={handleBreedChange}
+            InputLabelProps={{
+              shrink: true,
+            }}
           />
-          <TextField
-            margin="dense"
-            id="gender"
-            label="Gender"
-            type="text"
-            fullWidth
+
+          <RadioGroup
+            aria-label="gender"
+            name="gender"
             value={gender}
             onChange={handleGenderChange}
-          />
+          >
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Gender</FormLabel>
+              <FormGroup row>
+                <FormControlLabel
+                  value="male"
+                  control={<Radio />}
+                  label="Male"
+                />
+                <FormControlLabel
+                  value="female"
+                  control={<Radio />}
+                  label="Female"
+                />
+              </FormGroup>
+            </FormControl>
+          </RadioGroup>
+
+          <InputLabel htmlFor="date-of-birth">Date of Birth</InputLabel>
           <TextField
             margin="dense"
             id="date-of-birth"
-            label="Date of Birth"
             type="date"
             fullWidth
             value={dateOfBirth}
@@ -134,12 +157,11 @@ export default function AddCatDialog(props: {
               shrink: true,
             }}
           />
-        </Box>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={handleSave}>Save</Button>
-      </DialogActions>
-    </Dialog>
+        </FormGroup>
+        <Button variant="contained" onClick={handleSave} sx={{ mt: 2 }}>
+          Save
+        </Button>
+      </Box>
+    </Box>
   );
 }
