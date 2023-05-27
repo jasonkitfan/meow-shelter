@@ -11,7 +11,7 @@ function Home() {
     <div>
       <MyAppBar />
       <HeroSection />
-      {/* <AnimalGrid /> */}
+      <AnimalGrid />
       <EventSlider />
       <Donation />
       <ContactSection />

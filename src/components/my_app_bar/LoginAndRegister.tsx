@@ -2,13 +2,12 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom"; // import useHistory hook
 
-interface isAuth {
-  auth: boolean;
-}
+type Auth = {
+  authToken: string | null;
+};
 
-function LoginAndRegister(props: isAuth) {
+function LoginAndRegister(props: Auth) {
   const navigate = useNavigate(); // initialize useHistory hook
-
   const handleRegisterClick = () => {
     // navigate to the "/register" page
     navigate("/register");
@@ -22,7 +21,7 @@ function LoginAndRegister(props: isAuth) {
     <div>
       <Box
         sx={{
-          display: props.auth ? "none" : { xs: "block", md: "flex" },
+          display: props.authToken ? "none" : { xs: "block", md: "flex" },
           maxWidth: { xs: "100px", md: "200px" },
           textAlign: "center",
           gap: 2,

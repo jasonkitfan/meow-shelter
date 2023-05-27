@@ -1,5 +1,5 @@
 import Footer from "../components/footer/Footer";
-import AddCat from "../components/my_app_bar/AddCat";
+import AddCat from "../components/forms/AddCat";
 import MyAppBar from "../components/my_app_bar/MyAppBar";
 
 function AddCatPage() {

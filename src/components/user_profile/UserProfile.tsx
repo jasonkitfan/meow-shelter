@@ -18,6 +18,7 @@ const UserProfile = () => {
   const [open, setOpen] = useState(false); // state to control the dialog window
   const [open2, setOpen2] = useState(false);
   const [role, setRole] = useState("");
+  const [code, setCode] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState(false);
@@ -58,7 +59,7 @@ const UserProfile = () => {
       const response = await axios.post(
         "https://asia-east2-meow-shelter.cloudfunctions.net/app/shelter/userRole",
         {
-          code: role,
+          code: code,
         },
         {
           headers: {
@@ -113,6 +114,7 @@ const UserProfile = () => {
         );
         setName(response.data.name);
         setEmail(response.data.email);
+        setRole(response.data.role);
       } catch (error) {
         console.error(error);
       }
@@ -167,7 +169,7 @@ const UserProfile = () => {
                         fullWidth
                         label="Role"
                         name="role"
-                        value="normal user"
+                        value={role}
                         disabled
                       />
                     </Grid>
@@ -205,7 +207,7 @@ const UserProfile = () => {
               label="Identify Code"
               type="text"
               fullWidth
-              onChange={(e) => setRole(e.target.value)}
+              onChange={(e) => setCode(e.target.value)}
             />
           </form>
         </DialogContent>

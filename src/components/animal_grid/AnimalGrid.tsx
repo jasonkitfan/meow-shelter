@@ -21,6 +21,7 @@ interface Cat {
 
 function AnimalGrid() {
   const [cats, setCats] = useState<Cat[]>([]);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     async function fetchData() {
@@ -38,6 +39,16 @@ function AnimalGrid() {
     }
     fetchData();
   }, []);
+
+  function checkAdoptable(cat: Cat): boolean {
+    if (!cat.adoptable) {
+      return true;
+    }
+    if (!token) {
+      return true;
+    }
+    return false;
+  }
 
   // Calculate the age of the cat
   const calculateAge = (dob: string) => {
@@ -64,11 +75,13 @@ function AnimalGrid() {
         }}
       >
         {cats.map((cat) => (
-          <Grid item xs={12} sm={6} md={4} key={cat.id}>
+          <Grid item xs={6} sm={4} md={3} key={cat.id}>
             <Card>
               <CardMedia
+                // sx={{
+                //   height: { xs: "10rem", md: "30rem", lg: "300px" },
+                // }}
                 component="img"
-                height="200rem"
                 alt={cat.breed}
                 {...(cat.image_url
                   ? { image: cat.image_url }
@@ -78,7 +91,7 @@ function AnimalGrid() {
                 }}
               />
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography gutterBottom variant="h6" component="div">
                   {cat.breed}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
@@ -88,7 +101,12 @@ function AnimalGrid() {
                   <br />
                   Gender: {cat.gender}
                 </Typography>
-                <Button variant="contained" color="primary" sx={{ mt: 2 }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  sx={{ mt: 2 }}
+                  disabled={checkAdoptable(cat)}
+                >
                   Adopt
                 </Button>
               </CardContent>

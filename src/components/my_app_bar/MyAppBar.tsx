@@ -15,7 +15,6 @@ import PetsIcon from "@mui/icons-material/Pets";
 import LoginAndRegister from "./LoginAndRegister";
 import { useState } from "react";
 import { auth, logout } from "../../config/firebase";
-import AddCat from "./AddCat";
 import { useNavigate } from "react-router-dom";
 
 const pages = ["Adoption", "Event", "Donation", "Contact"];
@@ -23,16 +22,19 @@ const settings = ["Profile", "Dashboard", "Add New Cat", "Logout"];
 const shelterName = "Meow Shelter";
 
 function MyAppBar() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate(); // initialize useHistory hook
+  const [token, setToken] = useState(localStorage.getItem("token"));
 
   React.useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setIsAuthenticated(user !== null);
-      console.log(user?.getIdToken);
-    });
+    const handleStorageChange = () => {
+      setToken(localStorage.getItem("token"));
+    };
 
-    return unsubscribe;
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
   }, []);
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -70,6 +72,8 @@ function MyAppBar() {
       case settings[3]:
         console.log("logout user");
         logout();
+        navigate("/");
+        window.location.reload();
         break;
       default:
         console.log("not match");
@@ -169,7 +173,7 @@ function MyAppBar() {
           <Box
             sx={{
               flexGrow: 0,
-              display: `${isAuthenticated ? "block" : "none"}`,
+              display: `${token ? "block" : "none"}`,
             }}
           >
             <Tooltip title="Open settings">
@@ -203,7 +207,7 @@ function MyAppBar() {
               ))}
             </Menu>
           </Box>
-          <LoginAndRegister auth={isAuthenticated} />
+          <LoginAndRegister authToken={token} />
         </Toolbar>
       </Container>
     </AppBar>

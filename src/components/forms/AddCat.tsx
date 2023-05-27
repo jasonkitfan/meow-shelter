@@ -114,7 +114,7 @@ export default function AddCat() {
         sx={{ display: "flex", flexDirection: "column" }}
       >
         <label htmlFor="image-upload">
-          <img src={image} alt="Cat" width={300} />
+          <img src={image} alt="Cat" width={200} />
         </label>
         <input
           id="image-upload"
