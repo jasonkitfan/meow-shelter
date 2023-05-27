@@ -16,10 +16,7 @@ import {
   auth,
   signInWithGoogle,
   logInWithEmailAndPassword,
-  sendPasswordReset,
 } from "../../config/firebase";
-import MyAppBar from "../../components/my_app_bar/MyAppBar";
-import Footer from "../../components/footer/Footer";
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -30,7 +27,7 @@ const LoginForm: React.FC = () => {
     e.preventDefault();
     try {
       // Create the user with Firebase auth
-      const userCredential = await logInWithEmailAndPassword(email, password);
+      await logInWithEmailAndPassword(email, password);
 
       if (auth !== null) {
         navigate("/");

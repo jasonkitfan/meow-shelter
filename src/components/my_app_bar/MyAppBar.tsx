@@ -57,7 +57,8 @@ function MyAppBar() {
     setAnchorElUser(null);
     switch (setting) {
       case settings[0]:
-        // do something;
+        console.log("go to profile page");
+        navigate("/profile");
         break;
       case settings[1]:
         // do something;

@@ -5,6 +5,11 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import qs from "qs";
 import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   FormControl,
   FormControlLabel,
   FormLabel,
@@ -21,6 +26,8 @@ export default function AddCat() {
   const [gender, setGender] = React.useState("");
   const [dateOfBirth, setDateOfBirth] = React.useState("");
   const [image, setImage] = React.useState("");
+  const [open, setOpen] = React.useState(false);
+  const [status, setStatus] = React.useState(false);
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -52,11 +59,8 @@ export default function AddCat() {
     }
   };
 
-  const handleSave = async () => {
-    // Do something with the cat information
-    console.log(
-      `Saving cat: ${name}, ${breed}, ${gender}, ${dateOfBirth}, ${image}`
-    );
+  const handleSave = async (e: React.FormEvent) => {
+    e.preventDefault();
     const data = {
       name: name,
       breed: breed,
@@ -75,17 +79,40 @@ export default function AddCat() {
         }
       )
       .then((response) => {
-        console.log(response.data);
+        if (response.status === 200) {
+          setStatus(true);
+          setOpen(true);
+        }
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
+  const handleClose = () => {
+    setOpen(false);
+    setStatus(false);
+    setName("");
+    setBreed("");
+    setGender("");
+    setDateOfBirth("");
+    setImage("");
+  };
+
   return (
-    <Box maxWidth={500} mx="auto" marginTop={5}>
+    <Box
+      maxWidth={500}
+      mx="auto"
+      paddingLeft={5}
+      marginTop={5}
+      paddingRight={5}
+    >
       <Typography variant="h4">Add a Cat</Typography>
-      <Box sx={{ display: "flex", flexDirection: "column" }}>
+      <Box
+        component="form"
+        onSubmit={handleSave}
+        sx={{ display: "flex", flexDirection: "column" }}
+      >
         <label htmlFor="image-upload">
           <img src={image} alt="Cat" width={300} />
         </label>
@@ -98,6 +125,7 @@ export default function AddCat() {
         <FormGroup sx={{ mb: 2 }}>
           <InputLabel htmlFor="name">Name</InputLabel>
           <TextField
+            required
             margin="dense"
             id="name"
             type="text"
@@ -111,6 +139,7 @@ export default function AddCat() {
 
           <InputLabel htmlFor="breed">Breed</InputLabel>
           <TextField
+            required
             margin="dense"
             id="breed"
             type="text"
@@ -122,31 +151,32 @@ export default function AddCat() {
             }}
           />
 
-          <RadioGroup
-            aria-label="gender"
-            name="gender"
-            value={gender}
-            onChange={handleGenderChange}
-          >
-            <FormControl component="fieldset">
-              <FormLabel component="legend">Gender</FormLabel>
-              <FormGroup row>
-                <FormControlLabel
-                  value="male"
-                  control={<Radio />}
-                  label="Male"
-                />
-                <FormControlLabel
-                  value="female"
-                  control={<Radio />}
-                  label="Female"
-                />
-              </FormGroup>
-            </FormControl>
-          </RadioGroup>
+          <FormControl component="fieldset">
+            <FormLabel component="legend">Gender</FormLabel>
+            <RadioGroup
+              aria-label="gender"
+              name="gender"
+              value={gender}
+              onChange={handleGenderChange}
+              row
+            >
+              <FormControlLabel
+                value="male"
+                control={<Radio required />}
+                label="Male"
+                sx={{ mr: 3 }}
+              />
+              <FormControlLabel
+                value="female"
+                control={<Radio required />}
+                label="Female"
+              />
+            </RadioGroup>
+          </FormControl>
 
           <InputLabel htmlFor="date-of-birth">Date of Birth</InputLabel>
           <TextField
+            required
             margin="dense"
             id="date-of-birth"
             type="date"
@@ -158,10 +188,25 @@ export default function AddCat() {
             }}
           />
         </FormGroup>
-        <Button variant="contained" onClick={handleSave} sx={{ mt: 2 }}>
+        <Button type="submit" variant="contained" sx={{ mt: 2 }}>
           Save
         </Button>
       </Box>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>
+          {status ? "Cat saved successfully" : "Fail to save cat"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {status
+              ? "The cat information has been saved to the database"
+              : "There may be some problems with the server. Please try it later or contact the developer"}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>OK</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }
