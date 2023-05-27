@@ -10,8 +10,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import imageNotFound from "./image_not_found.png";
 
-interface Cat {
+export interface Cat {
   id: string;
+  name: string;
   dob: any;
   breed: string;
   gender: string;
@@ -92,7 +93,7 @@ function AnimalGrid() {
               />
               <CardContent>
                 <Typography gutterBottom variant="h6" component="div">
-                  {cat.breed}
+                  {cat.name}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
                   Age: {calculateAge(cat.dob)}

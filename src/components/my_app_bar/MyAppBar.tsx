@@ -18,7 +18,7 @@ import { auth, logout } from "../../config/firebase";
 import { useNavigate } from "react-router-dom";
 
 const pages = ["Adoption", "Event", "Donation", "Contact"];
-const settings = ["Profile", "Dashboard", "Add New Cat", "Logout"];
+const settings = ["Profile", "Dashboard", "Record", "Logout"];
 const shelterName = "Meow Shelter";
 
 function MyAppBar() {
@@ -66,8 +66,7 @@ function MyAppBar() {
         // do something;
         break;
       case settings[2]:
-        console.log("add new cat");
-        navigate("/addNewCat");
+        console.log("show record");
         break;
       case settings[3]:
         console.log("logout user");

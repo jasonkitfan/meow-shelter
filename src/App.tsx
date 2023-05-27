@@ -4,6 +4,7 @@ import RegisterUser from "./pages/RegisterUser";
 import LoginUser from "./pages/LoginUser";
 import AddCatPage from "./pages/AddCatPage";
 import UserProfilePage from "./pages/UserProfilePage";
+import ModifyCatPage from "./pages/ModifyCatPage";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/register" element={<RegisterUser />} />
         <Route path="/login" element={<LoginUser />} />
         <Route path="/addNewCat" element={<AddCatPage />} />
+        <Route path="/modifyCat" element={<ModifyCatPage />} />
         <Route path="/profile" element={<UserProfilePage />} />
       </Routes>
     </Router>

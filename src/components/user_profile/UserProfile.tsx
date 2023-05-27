@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Grid,
   Button,
@@ -11,7 +12,6 @@ import {
   DialogContent,
   DialogActions,
 } from "@mui/material";
-import { auth } from "../../config/firebase";
 import axios from "axios";
 
 const UserProfile = () => {
@@ -24,6 +24,7 @@ const UserProfile = () => {
   const [status, setStatus] = useState(false);
   const [newRole, setNewRole] = useState("");
   const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
   const handleOpen = () => {
     setOpen(true);
@@ -194,6 +195,33 @@ const UserProfile = () => {
                 Save Changes
               </Button>
             </form>
+          </Grid>
+        </Grid>
+        <Grid
+          container
+          direction="column"
+          sx={{
+            display: role === "employee" ? "grid" : "none",
+            gridTemplateRows: "auto 1fr",
+            borderTop: (theme) => `1px solid ${theme.palette.divider}`,
+          }}
+        >
+          <Grid item sx={{ height: 1, backgroundColor: "divider" }} />
+          <Grid
+            item
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: 2,
+            }}
+          >
+            <Button variant="contained" onClick={() => navigate("/addNewCat")}>
+              Add New Cat
+            </Button>
+            <Button variant="contained" onClick={() => navigate("/modifyCat")}>
+              Modify Cat Information
+            </Button>
           </Grid>
         </Grid>
       </Box>
