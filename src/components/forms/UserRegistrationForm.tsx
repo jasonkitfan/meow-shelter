@@ -28,11 +28,7 @@ const UserRegistrationForm: React.FC = () => {
     e.preventDefault();
     try {
       // Create the user with Firebase auth
-      const userCredential = await registerWithEmailAndPassword(
-        username,
-        email,
-        password
-      );
+      await registerWithEmailAndPassword(username, email, password);
 
       // Log the user in
       console.log("User created");

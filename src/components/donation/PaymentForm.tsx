@@ -6,7 +6,7 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { stripePublicKey } from "../../config/stripe";
+import { stripePublicKey } from "../../config/secret";
 import { TextField, Button, Grid } from "@mui/material";
 import axios from "axios";
 

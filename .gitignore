@@ -7,7 +7,7 @@
 
 # confidential files
 /src/config/firebase.tsx
-/src/config/stripe.tsx
+/src/config/secret.tsx
 
 # testing
 /coverage

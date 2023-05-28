@@ -19,6 +19,18 @@ import {
 } from "@mui/material";
 import FormGroup from "@mui/material/FormGroup";
 import InputLabel from "@mui/material/InputLabel";
+import { googleApiKey } from "../../config/secret";
+
+interface WebEntity {
+  entityId: string;
+  score: number;
+  description: string;
+  boundingPoly?: object;
+  confidence?: number;
+  locale?: string;
+  locations?: any[];
+  properties?: any[];
+}
 
 export default function AddCat() {
   const [name, setName] = React.useState("");
@@ -75,6 +87,7 @@ export default function AddCat() {
         {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded", // Set the content type to x-www-form-urlencoded
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       )
@@ -99,6 +112,44 @@ export default function AddCat() {
     setImage("");
   };
 
+  // get the breed
+  const getBreed = async () => {
+    // console.log(`my image: ${image}`);
+    if (image === "") {
+      console.log("no image uploaded yet");
+      return;
+    }
+
+    const data = {
+      base64Image: image,
+    };
+    axios
+      .post(
+        "https://asia-east2-meow-shelter.cloudfunctions.net/app/shelter/identifyBreed",
+        qs.stringify(data), // Use the 'qs' library to format the data as x-www-form-urlencoded
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded", // Set the content type to x-www-form-urlencoded
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          console.log("success");
+          console.log(response.data);
+          setBreed(response.data.data.results[0].label);
+        } else {
+          setBreed("unknown");
+        }
+      })
+      .catch((error) => {
+        setBreed("unknown");
+        console.log("failed");
+        console.log(error);
+      });
+  };
+
   return (
     <Box
       maxWidth={500}
@@ -114,7 +165,7 @@ export default function AddCat() {
         sx={{ display: "flex", flexDirection: "column" }}
       >
         <label htmlFor="image-upload">
-          <img src={image} alt="Cat" width={200} />
+          <img src={image} alt="Cat" width={300} />
         </label>
         <input
           id="image-upload"
@@ -146,6 +197,13 @@ export default function AddCat() {
             fullWidth
             value={breed}
             onChange={handleBreedChange}
+            InputProps={{
+              endAdornment: (
+                <Button variant="contained" color="primary" onClick={getBreed}>
+                  Search
+                </Button>
+              ),
+            }}
             InputLabelProps={{
               shrink: true,
             }}
