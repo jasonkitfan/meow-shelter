@@ -4,7 +4,10 @@
 /node_modules
 /.pnp
 .pnp.js
+
+# confidential files
 /src/config/firebase.tsx
+/src/config/stripe.tsx
 
 # testing
 /coverage

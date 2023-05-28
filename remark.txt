@@ -8,4 +8,5 @@ npm install react-router-dom --force
 npm install @types/react-router-dom --force
 npm install firebase --force
 npm install -g firebase-tools
+npm install @stripe/react-stripe-js --force
 
