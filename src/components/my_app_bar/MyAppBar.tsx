@@ -67,6 +67,7 @@ function MyAppBar() {
         break;
       case settings[2]:
         console.log("show record");
+        navigate("/adoptionRecord");
         break;
       case settings[3]:
         console.log("logout user");

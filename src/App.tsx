@@ -7,8 +7,10 @@ import UserProfilePage from "./pages/UserProfilePage";
 import ModifyCatPage from "./pages/ModifyCatPage";
 import { useEffect } from "react";
 import { auth } from "./config/firebase";
+import AdoptionRecordPage from "./pages/AdoptionRecord";
 
 function App() {
+  // refresh the auth token as the token will expired in certain period
   useEffect(() => {
     const unsubscribe = auth.onIdTokenChanged(async (user) => {
       const token = await user?.getIdToken();
@@ -28,6 +30,7 @@ function App() {
         <Route path="/addNewCat" element={<AddCatPage />} />
         <Route path="/modifyCat" element={<ModifyCatPage />} />
         <Route path="/profile" element={<UserProfilePage />} />
+        <Route path="/adoptionRecord" element={<AdoptionRecordPage />} />
       </Routes>
     </Router>
   );

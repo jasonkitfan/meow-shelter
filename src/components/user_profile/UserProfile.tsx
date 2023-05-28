@@ -216,10 +216,18 @@ const UserProfile = () => {
               padding: 2,
             }}
           >
-            <Button variant="contained" onClick={() => navigate("/addNewCat")}>
+            <Button
+              variant="contained"
+              color="success"
+              onClick={() => navigate("/addNewCat")}
+            >
               Add New Cat
             </Button>
-            <Button variant="contained" onClick={() => navigate("/modifyCat")}>
+            <Button
+              variant="contained"
+              color="success"
+              onClick={() => navigate("/modifyCat")}
+            >
               Modify Cat Information
             </Button>
           </Grid>

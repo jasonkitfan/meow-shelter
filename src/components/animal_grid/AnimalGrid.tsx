@@ -15,6 +15,7 @@ import {
 import { useEffect, useState } from "react";
 import axios from "axios";
 import imageNotFound from "./image_not_found.png";
+import { calculateAge } from "../../globalFunction/calculateAge";
 
 export interface Cat {
   id: string;
@@ -116,14 +117,6 @@ function AnimalGrid() {
   const handleDateChange = (date: string) => {
     setPickUpDate(date);
     console.log(pickUpDate);
-  };
-
-  // Calculate the age of the cat
-  const calculateAge = (dob: string) => {
-    const dobDate = new Date(dob);
-    const diff = Date.now() - dobDate.getTime();
-    const age = (diff / 1000 / 60 / 60 / 24 / 365).toFixed(1);
-    return age;
   };
 
   // handle second dialog
