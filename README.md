@@ -1,46 +1,82 @@
-# Getting Started with Create React App
+# Cat Shelter Project Documentation
+## Project Overview
+The Cat Shelter project is a web-based application that helps manage the operations of a cat shelter. The primary goal of the project is to provide an easy-to-use interface for shelter staff to manage cat adoptions, donations, and volunteer activities, as well as provide information to the public about the shelter's programs and services.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Using TypeScript with Material-UI
 
-In the project directory, you can run:
+This project uses TypeScript with Material-UI for building responsive web applications. To use TypeScript with Material-UI, you will need to install the following packages:
 
-### `npm start`
+* @mui/typescript - TypeScript definitions for Material-UI components and utilities
+* @types/react - TypeScript definitions for React
+* @types/react-dom - TypeScript definitions for React DOM
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+To install these packages, run the following command:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
+## All Packages Installed
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* @mui/material - a React UI framework for building responsive web applications
+* @emotion/react - a library for styling React components with CSS-in-JS
+* @emotion/styled - a library for styling React components with CSS-in-JS
+* @mui/icons-material - a collection of Material Design icons for use with the Material-UI library
+* @types/react-swipeable-views-utils - TypeScript definitions for the react-swipeable-views-utils package
+* react-swipeable-views - a React component for building swipeable views
+* @mui/styles - alibrary for styling Material-UI components with JSS
+* axios - a library for making HTTP requests from the browser or Node.js
+* react-router-dom - a library for handling client-side routing in React applications
+* @types/react-router-dom - TypeScript definitions for the react-router-dom package
+* firebase - a cloud-based platform for building web and mobile applications
+* firebase-tools - a CLI tool for deploying and managing Firebase projects from the command line
+* @stripe/react-stripe-js - a library for integrating Stripe payments into React applications
+* request-promise-native - a library for making HTTP requests with promises in Node.js
+* @types/request-promise-native - TypeScript definitions for the request-promise-native package
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## User Role
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The Cat Shelter project includes the following features and functionality for different users:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### Non Registered User
+  * view the cats information
+  * send message to the shelter
+  * donate to the shelter
 
-### `npm run eject`
+#### Registered User
+  * adopt cat
+  * get their adoption record to check when to meet the cat
+  * get the user data
+  * modify user data
+  * features of Non Registered User
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+#### Employee
+  * upgrade the role from normal user to employee level
+  * add cat to the cat list
+  * modify the cat data
+  * delete cat data
+  * call the Zyla to identify the cat breed
+  * all features of the above two roles
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Special Features
+  
+   * Stripe Payment
+   * Breed Identification
+   * Google Login
+   * Dynamic Display the Component( User Profile Page)
+   * Upload Images
+   * Auto Refresh the Auth Token if expired
+   * SMTP Send Message
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## Developer Documentation
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The Cat Shelter project will include developer documentation in the form of code comments, API documentation, and technical specifications. Code comments will provide inline documentation within the source code, describing the purpose and functionality of individual functions and modules.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Conclusion
+
+The Cat Shelter project is an important initiative that aims to help the shelter manage its operations more efficiently and provide a better experience for cats and humans alike. By following the project plan, meeting the requirements, and adhering to best practices for software development, a high-quality, reliable, and user-friendly system can be delivered that meets the needs of the shelter and its stakeholders.
+
+
+
+
