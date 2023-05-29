@@ -1,15 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import CallIcon from "@mui/icons-material/Call";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import axios from "axios";
 
 const ContactForm: React.FC = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [content, setContent] = useState("");
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Handle form submission
+    sendEmail();
+  };
+
+  const sendEmail = async () => {
+    await axios
+      .post(
+        "https://asia-east2-meow-shelter.cloudfunctions.net/app/shelter/email",
+        {
+          name: name,
+          email: email,
+          content: content,
+        }
+      )
+      .then((response) => {
+        console.log("success");
+        console.log(response.data);
+        setName("");
+        setEmail("");
+        setContent("");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -45,6 +73,8 @@ const ContactForm: React.FC = () => {
           margin="normal"
           fullWidth
           required
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
         <TextField
           label="Email"
@@ -54,8 +84,11 @@ const ContactForm: React.FC = () => {
           margin="normal"
           fullWidth
           required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <TextField
+          value={content}
           label="Message"
           variant="outlined"
           name="message"
@@ -64,6 +97,7 @@ const ContactForm: React.FC = () => {
           margin="normal"
           fullWidth
           required
+          onChange={(e) => setContent(e.target.value)}
         />
         <Button type="submit" variant="contained" sx={{ marginTop: 2 }}>
           Send
