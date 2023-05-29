@@ -58,7 +58,11 @@ function ModifyCatGrid() {
     setSelectedCat(null);
   };
 
-  // call api to get the cat information when the page is loaded
+  /**
+   * Calls the API to get the cat information when the page is loaded and sets the state of the component with the response data.
+   * @function
+   * @returns {void}
+   */
   const [cats, setCats] = useState<Cat[]>([]);
   useEffect(() => {
     async function fetchData() {
@@ -78,7 +82,13 @@ function ModifyCatGrid() {
     fetchData();
   }, []);
 
-  // call api to update the cat info
+  /**
+   * Sends a request to update the information for a cat by ID and logs the response data.
+   * @async
+   * @function
+   * @param {Cat} cat - The cat object to update.
+   * @returns {Promise<void>}
+   */
   const handleUpdate = async (cat: Cat) => {
     console.log("update cat");
 
@@ -106,7 +116,13 @@ function ModifyCatGrid() {
     }
   };
 
-  // call api to delete the cat in db
+  /**
+   * Sends a request to delete a cat by ID and logs the response data.
+   * @async
+   * @function
+   * @param {string} docId - The ID of the cat document to delete.
+   * @returns {Promise<void>}
+   */
   const handleDelete = async (docId: string) => {
     try {
       const response = await axios.delete(

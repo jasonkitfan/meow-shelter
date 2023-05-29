@@ -33,7 +33,17 @@ function AnimalGrid() {
   const [pickUpDate, setPickUpDate] = useState("");
   const token = localStorage.getItem("token");
 
+  /**
+   * Fetches data from the server and sets the state of the component with the response data.
+   * @function
+   * @returns {void}
+   */
   useEffect(() => {
+    /**
+     * Async function that fetches data from the server and sets the state with the response data.
+     * @function
+     * @returns {Promise<void>}
+     */
     async function fetchData() {
       try {
         const response = await axios.get(
@@ -50,6 +60,12 @@ function AnimalGrid() {
     fetchData();
   }, []);
 
+  /**
+   * Checks whether a cat is adoptable based on its adoptability status and the presence of a token.
+   * @function
+   * @param {Cat} cat - The cat to check.
+   * @returns {boolean} Whether the cat is adoptable or not.
+   */
   function checkAdoptable(cat: Cat): boolean {
     if (!cat.adoptable) {
       return true;
@@ -63,6 +79,12 @@ function AnimalGrid() {
   // handle the adoption dialog
   const [open, setOpen] = useState(false);
 
+  /**
+   * Handles the opening of a dialog box to adopt a cat.
+   * @function
+   * @param {Cat} cat - The cat to be adopted.
+   * @returns {void}
+   */
   const handleOpen = (cat: Cat) => {
     setAdoptingCat({
       id: cat.id,
@@ -80,6 +102,11 @@ function AnimalGrid() {
     setOpen(false);
   };
 
+  /**
+   * Handles the adoption of a cat by sending a POST request to the server.
+   * @function
+   * @returns {void}
+   */
   const handleAdopt = () => {
     console.log("adopting the cat");
     axios
@@ -113,7 +140,12 @@ function AnimalGrid() {
       });
   };
 
-  // handle pick up date
+  /**
+   * Handles the change of the pick-up date for a cat adoption.
+   * @function
+   * @param {string} date - The new pick-up date in the format "YYYY-MM-DD".
+   * @returns {void}
+   */
   const handleDateChange = (date: string) => {
     setPickUpDate(date);
     console.log(pickUpDate);
@@ -123,6 +155,12 @@ function AnimalGrid() {
   const [open2, setOpen2] = useState(false);
   const [message, setMessage] = useState("");
 
+  /**
+   * Handles the click on the "Adopt" button by showing a dialog box with a message.
+   * @function
+   * @param {boolean} success - Whether the adoption was successful or not.
+   * @returns {void}
+   */
   const handleClickOpen2 = (success: boolean) => {
     if (success) {
       setMessage("Your adoption is accepted!");

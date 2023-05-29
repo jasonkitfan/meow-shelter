@@ -14,7 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import PetsIcon from "@mui/icons-material/Pets";
 import LoginAndRegister from "./LoginAndRegister";
 import { useState } from "react";
-import { auth, logout } from "../../config/firebase";
+import { logout } from "../../config/firebase";
 import { useNavigate } from "react-router-dom";
 
 const pages = ["Adoption", "Event", "Donation", "Contact"];
@@ -25,6 +25,11 @@ function MyAppBar() {
   const navigate = useNavigate(); // initialize useHistory hook
   const [token, setToken] = useState(localStorage.getItem("token"));
 
+  /**
+   * Listens for changes to the local storage and updates the component state with the new token value.
+   * @function
+   * @returns {void}
+   */
   React.useEffect(() => {
     const handleStorageChange = () => {
       setToken(localStorage.getItem("token"));
@@ -55,6 +60,12 @@ function MyAppBar() {
     setAnchorElNav(null);
   };
 
+  /**
+   * Handles the user menu close event and performs an action based on the selected setting.
+   * @function
+   * @param {string} setting - The selected setting from the user menu.
+   * @returns {void}
+   */
   const handleCloseUserMenu = (setting: string) => {
     setAnchorElUser(null);
     switch (setting) {

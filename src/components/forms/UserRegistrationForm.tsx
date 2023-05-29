@@ -24,6 +24,13 @@ const UserRegistrationForm: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate(); // initialize useHistory hook
 
+  /**
+   * Handles the registration process by attempting to create a new user with Firebase authentication.
+   * @async
+   * @function
+   * @param {React.FormEvent} e - The form submission event.
+   * @returns {Promise<void>}
+   */
   const handleRegistration = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -39,6 +46,13 @@ const UserRegistrationForm: React.FC = () => {
     }
   };
 
+  /**
+   * Handles the login process with Google by attempting to authenticate the user with their Google account.
+   * @async
+   * @function
+   * @param {React.FormEvent} e - The form submission event.
+   * @returns {Promise<void>}
+   */
   const handleGoogleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 

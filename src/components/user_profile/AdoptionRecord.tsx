@@ -18,6 +18,12 @@ interface adoptionRecord {
 export default function AdoptionRecordList() {
   // call api to get the adoption record when the page is loaded
   const [cats, setCats] = useState<adoptionRecord[]>([]);
+
+  /**
+   * Calls the API to get the list of cats available for adoption when the page is loaded and sets the state of the component with the response data.
+   * @function
+   * @returns {void}
+   */
   useEffect(() => {
     async function fetchData() {
       try {

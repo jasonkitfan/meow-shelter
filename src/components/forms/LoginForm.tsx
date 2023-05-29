@@ -23,6 +23,13 @@ const LoginForm: React.FC = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate(); // initialize useHistory hook
 
+  /**
+   * Handles the login process by attempting to authenticate the user with their email and password.
+   * @async
+   * @function
+   * @param {React.FormEvent} e - The form submission event.
+   * @returns {Promise<void>}
+   */
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -40,6 +47,13 @@ const LoginForm: React.FC = () => {
     }
   };
 
+  /**
+   * Handles the login process with Google by attempting to authenticate the user with their Google account.
+   * @async
+   * @function
+   * @param {React.FormEvent} e - The form submission event.
+   * @returns {Promise<void>}
+   */
   const handleGoogleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 

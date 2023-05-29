@@ -19,6 +19,13 @@ const PaymentForm = () => {
   const stripe = useStripe();
   const elements = useElements();
 
+  /**
+   * Handles the payment process by creating a payment method and sending a POST request to the server.
+   * @async
+   * @function
+   * @param {React.FormEvent<HTMLFormElement>} event - The form submission event.
+   * @returns {Promise<void>}
+   */
   const handlePayment = async (event: React.FormEvent<HTMLFormElement>) => {
     console.log("handling payment");
     event.preventDefault();

@@ -19,18 +19,6 @@ import {
 } from "@mui/material";
 import FormGroup from "@mui/material/FormGroup";
 import InputLabel from "@mui/material/InputLabel";
-import { googleApiKey } from "../../config/secret";
-
-interface WebEntity {
-  entityId: string;
-  score: number;
-  description: string;
-  boundingPoly?: object;
-  confidence?: number;
-  locale?: string;
-  locations?: any[];
-  properties?: any[];
-}
 
 export default function AddCat() {
   const [name, setName] = React.useState("");
@@ -59,6 +47,12 @@ export default function AddCat() {
     setDateOfBirth(event.target.value);
   };
 
+  /**
+   * Handles the change of the cat image by reading and setting the image file.
+   * @function
+   * @param {React.ChangeEvent<HTMLInputElement>} event - The change event of the input element.
+   * @returns {void}
+   */
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files && files.length > 0) {
@@ -71,6 +65,13 @@ export default function AddCat() {
     }
   };
 
+  /**
+   * Handles the submission of the form by sending a POST request to the server with the cat data.
+   * @async
+   * @function
+   * @param {React.FormEvent} e - The form submission event.
+   * @returns {Promise<void>}
+   */
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     const data = {
@@ -102,6 +103,11 @@ export default function AddCat() {
       });
   };
 
+  /**
+   * Handles the closing of the dialog box by resetting the state of the component.
+   * @function
+   * @returns {void}
+   */
   const handleClose = () => {
     setOpen(false);
     setStatus(false);
@@ -112,7 +118,12 @@ export default function AddCat() {
     setImage("");
   };
 
-  // get the breed
+  /**
+   * Identifies the breed of a cat by sending an image to the server and setting the state of the component with the response data.
+   * @async
+   * @function
+   * @returns {Promise<void>}
+   */
   const getBreed = async () => {
     // console.log(`my image: ${image}`);
     if (image === "") {
