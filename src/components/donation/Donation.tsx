@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import PaymentFormWrapper from "./PaymentForm";
+import image_for_donate from "./image_for_donate.jpg";
 
 const donateButtonText = "Donate";
 const title = "Give a big helping hand";
@@ -31,22 +32,22 @@ const Donation = () => {
     >
       <Box
         sx={{
-          flexDirection: "row",
+          flexDirection: { xs: "column", sm: "row" },
           alignItems: "center",
           width: "100%",
-          display: { sm: "none", md: "flex" },
+          display: "flex",
         }}
       >
         <Box
           component="img"
-          src="https://picsum.photos/300/200"
+          src={image_for_donate}
           alt="Random"
           sx={{
-            width: "100%",
+            width: { xs: "100%", sm: "50%" },
             height: "auto",
             objectFit: "cover",
             borderRadius: "6px",
-            marginBottom: "16px",
+            marginBottom: { xs: "16px", sm: "0" },
           }}
         />
         <Box
@@ -54,11 +55,13 @@ const Donation = () => {
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
-            marginTop: "0",
+            alignItems: "center",
+            textAlign: "center",
             marginBottom: "0",
             width: "100%",
-            paddingLeft: "3%",
-            paddingRight: "3%",
+            marginLeft: { sm: "3%" },
+            marginRight: { sm: "3%" },
+            marginTop: { xs: "16px", sm: "0" },
           }}
         >
           {!showPaymentForm && <Typography variant="h2">{title}</Typography>}

@@ -7,17 +7,42 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { stripePublicKey } from "../../config/secret";
-import { TextField, Button, Grid } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Grid,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
 import axios from "axios";
 
 const stripePromise = loadStripe(stripePublicKey);
 
 const PaymentForm = () => {
   const [amount, setAmount] = useState("");
+  const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
+
+  const handleOpen = () => {
+    setOpenDialog(true);
+  };
+
+  const handleClose = () => {
+    setOpenDialog(false);
+    // clear the field
+    setAmount("");
+    setEmail("");
+    //claude+ clear the form data here
+    if (elements) {
+      const cardElement = elements.getElement(CardElement);
+      cardElement?.clear();
+    }
+  };
 
   /**
    * Handles the payment process by creating a payment method and sending a POST request to the server.
@@ -57,6 +82,7 @@ const PaymentForm = () => {
         }
       );
       console.log("success");
+      handleOpen();
       console.log(response.data);
     } catch (error) {
       console.log(error);
@@ -73,8 +99,11 @@ const PaymentForm = () => {
             label="Email"
             variant="outlined"
             margin="normal"
+            type="email"
+            value={email}
             required
             fullWidth
+            onChange={(e) => setEmail(e.target.value)}
           />
         </Grid>
         <Grid item xs={12}>
@@ -85,6 +114,7 @@ const PaymentForm = () => {
             margin="normal"
             required
             fullWidth
+            value={amount}
             onChange={(e) => setAmount(e.target.value)}
           />
         </Grid>
@@ -98,6 +128,8 @@ const PaymentForm = () => {
                   "::placeholder": {
                     color: "#aab7c4",
                   },
+                  backgroundColor: "#fff",
+                  padding: "10px 12px",
                 },
                 invalid: {
                   color: "#9e2146",
@@ -118,10 +150,22 @@ const PaymentForm = () => {
             fullWidth
             id="submit"
           >
-            Submit Payment
+            {loading ? "Processing..." : "Submit Payment"}
           </Button>
         </Grid>
       </Grid>
+      <Dialog open={openDialog} onClose={handleClose}>
+        <DialogTitle>Payment Success</DialogTitle>
+        <DialogContent>
+          <p>
+            Your payment is succeed. Thank you for supporting us. Have a good
+            day.
+          </p>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>OK</Button>
+        </DialogActions>
+      </Dialog>
     </form>
   );
 };

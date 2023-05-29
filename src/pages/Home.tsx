@@ -1,4 +1,4 @@
-import AnimalGrid from "../components/animal_grid/AnimalGrid";
+// import AnimalGrid from "../components/animal_grid/AnimalGrid";
 import ContactSection from "../components/contact/ContactSection";
 import Donation from "../components/donation/Donation";
 import EventSlider from "../components/event_slider/EventSlider";
@@ -11,7 +11,7 @@ function Home() {
     <div>
       <MyAppBar />
       <HeroSection />
-      <AnimalGrid />
+      {/* <AnimalGrid /> */}
       <EventSlider />
       <Donation />
       <ContactSection />

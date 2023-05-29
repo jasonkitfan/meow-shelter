@@ -93,7 +93,7 @@ const UserProfile = () => {
    */
   const changeUserInfo = async () => {
     try {
-      const response = await axios.post(
+      await axios.post(
         "https://asia-east2-meow-shelter.cloudfunctions.net/app/shelter/userInfo",
         {
           name: name,
